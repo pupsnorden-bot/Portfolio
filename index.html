@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Илья — Python-разработчик</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+        }
+
+        body {
+            background-color: #0a0a0a;
+            color: #f0f0f0;
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            min-height: 95vh;
+            border: 1px solid #222;
+            border-radius: 20px;
+            padding: 40px;
+            background: #111;
+            margin-top: 20px;
+        }
+
+        /* Шапка */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 60px;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+
+        .name-title h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #00a8ff, #9c88ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+
+        .name-title h2 {
+            font-size: 1.8rem;
+            color: #aaa;
+            font-weight: 400;
+        }
+
+        .status-online {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: #1a1a1a;
+            padding: 10px 20px;
+            border-radius: 50px;
+            border: 1px solid #333;
+        }
+
+        .online-dot {
+            width: 10px;
+            height: 10px;
+            background: #4cd137;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+
+        /* Основной контент */
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            flex-grow: 1;
+        }
+
+        @media (max-width: 900px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Левая колонка - статус */
+        .status-section {
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+        }
+
+        .status-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+        }
+
+        .status-item {
+            background: #1a1a1a;
+            padding: 25px;
+            border-radius: 15px;
+            border: 1px solid #252525;
+            transition: transform 0.3s, border-color 0.3s;
+        }
+
+        .status-item:hover {
+            transform: translateY(-5px);
+            border-color: #444;
+        }
+
+        .status-label {
+            color: #888;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+
+        .status-value {
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .focus-item {
+            background: linear-gradient(135deg, #1a1a1a, #2d2d2d);
+            border: 1px solid #3498db;
+        }
+
+        /* Правая колонка - навыки */
+        .skills-section h2 {
+            font-size: 2rem;
+            margin-bottom: 40px;
+            color: #f0f0f0;
+        }
+
+        .skills-category {
+            margin-bottom: 40px;
+        }
+
+        .skills-category h3 {
+            color: #3498db;
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .skills-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .skill-tag {
+            background: #1a1a1a;
+            padding: 12px 24px;
+            border-radius: 50px;
+            border: 1px solid #333;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+
+        .skill-tag:hover {
+            background: #3498db;
+            border-color: #3498db;
+            transform: scale(1.05);
+        }
+
+        /* Контакты */
+        .contact-section {
+            margin-top: 60px;
+            padding-top: 40px;
+            border-top: 1px solid #222;
+            text-align: center;
+        }
+
+        .contact-section h2 {
+            font-size: 2.2rem;
+            margin-bottom: 25px;
+            background: linear-gradient(135deg, #00a8ff, #9c88ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .telegram-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #0088cc, #00a8ff);
+            color: white;
+            text-decoration: none;
+            padding: 18px 45px;
+            border-radius: 50px;
+            font-size: 1.3rem;
+            font-weight: 600;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+
+        .telegram-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0, 136, 204, 0.3);
+        }
+
+        /* Адаптивность */
+        @media (max-width: 768px) {
+            .container {
+                padding: 25px;
+            }
+            
+            .name-title h1 {
+                font-size: 2.5rem;
+            }
+            
+            .status-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .skills-grid {
+                justify-content: center;
+            }
+        }
+
+        /* Скрипт для времени */
+        .time-value {
+            font-family: 'Courier New', monospace;
+            color: #4cd137;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Шапка -->
+        <div class="header">
+            <div class="name-title">
+                <h1>Привет, я Илья</h1>
+                <h2>Python-разработчик</h2>
+                <p style="margin-top: 15px; color: #aaa; max-width: 600px;">
+                    Создаю эффективные боты для Telegram и погружаюсь в глубины Python. 
+                    Фокусируюсь на чистом коде, масштабируемых решениях и постоянном развитии.
+                </p>
+            </div>
+            <div class="status-online">
+                <div class="online-dot"></div>
+                <span>ОНЛАЙН</span>
+            </div>
+        </div>
+
+        <!-- Основной контент -->
+        <div class="main-content">
+            <!-- Левая колонка: статус -->
+            <div class="status-section">
+                <div class="status-grid">
+                    <div class="status-item">
+                        <div class="status-label">Возраст</div>
+                        <div class="status-value">???</div>
+                    </div>
+                    <div class="status-item">
+                        <div class="status-label">Локация</div>
+                        <div class="status-value">Ярославль, Россия</div>
+                    </div>
+                    <div class="status-item">
+                        <div class="status-label">Местное время</div>
+                        <div class="status-value time-value" id="current-time">Загрузка...</div>
+                    </div>
+                    <div class="status-item focus-item">
+                        <div class="status-label">Фокус</div>
+                        <div class="status-value">Создаю TG-ботов, изучаю Python на максимум</div>
+                    </div>
+                </div>
+                
+                <div class="status-item" style="grid-column: span 2;">
+                    <div class="status-label">Статус</div>
+                    <div class="status-value">Работаю • Открыт для интересных проектов</div>
+                </div>
+            </div>
+
+            <!-- Правая колонка: навыки -->
+            <div class="skills-section">
+                <h2>Навыки</h2>
+                
+                <div class="skills-category">
+                    <h3>Python & Backend</h3>
+                    <div class="skills-grid">
+                        <div class="skill-tag">Python 3</div>
+                        <div class="skill-tag">Django</div>
+                        <div class="skill-tag">FastAPI</div>
+                        <div class="skill-tag">PostgreSQL</div>
+                        <div class="skill-tag">Docker</div>
+                        <div class="skill-tag">aiogram</div>
+                        <div class="skill-tag">Telegram Bot API</div>
+                        <div class="skill-tag">REST API</div>
+                    </div>
+                </div>
+                
+                <div class="skills-category">
+                    <h3>Инструменты & Другое</h3>
+                    <div class="skills-grid">
+                        <div class="skill-tag">Git & GitHub</div>
+                        <div class="skill-tag">Linux</div>
+                        <div class="skill-tag">PyCharm</div>
+                        <div class="skill-tag">Веб-скрейпинг</div>
+                        <div class="skill-tag">Автоматизация</div>
+                        <div class="skill-tag">Алгоритмы</div>
+                        <div class="skill-tag">ООП</div>
+                        <div class="skill-tag">Базы данных</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Контакты -->
+        <div class="contact-section">
+            <h2>Давай работать вместе</h2>
+            <p style="color: #aaa; max-width: 600px; margin: 0 auto 30px;">
+                Всегда открыт к новым вызовам и интересным задачам. Если у тесть есть проект, 
+                идея или просто хочешь обсудить технологии — напиши.
+            </p>
+            <a href="https://t.me/zaebzona" class="telegram-button" target="_blank">
+                Написать в Telegram
+            </a>
+        </div>
+    </div>
+
+    <!-- Скрипт для обновления времени -->
+    <script>
+        function updateTime() {
+            const now = new Date();
+            const formatter = new Intl.DateTimeFormat('ru-RU', {
+                timeZone: 'Europe/Moscow',
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit',
+                hour12: false
+            });
+            document.getElementById('current-time').textContent = formatter.format(now);
+        }
+        
+        // Обновляем время сразу и каждую секунду
+        updateTime();
+        setInterval(updateTime, 1000);
+    </script>
+</body>
+</html>
